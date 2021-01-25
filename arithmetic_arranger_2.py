@@ -56,6 +56,7 @@ def arithmetic_arranger_2(problems, result=True):
     print(sec_line)
 
 
+#vzorova rovnice
 '''
   32         1      9999      523
 +  8    - 3801    + 9999    -  49
