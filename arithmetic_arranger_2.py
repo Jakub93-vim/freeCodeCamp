@@ -41,26 +41,21 @@ def arithmetic_arranger_2(problems, result=True):
             pro_list.append(problems_poc[elem])
 
     def longer(ls_ele):#funkce vyhodnocujici ktery z prvku pro listu je delsi a vrati hodnotu delky
-        print(ls_ele[0],ls_ele[1], 'uvnitr funkce')
-        if ls_ele[0] > ls_ele[1]:
+        if int(ls_ele[0]) > int(ls_ele[1]):
             return len(ls_ele[0])
-        if ls_ele[0] < ls_ele[1]:
+        if int(ls_ele[0]) < int(ls_ele[1]):
             return len(ls_ele[1])
-        if ls_ele[0] == ls_ele[1]:
+        if int(ls_ele[0]) == int(ls_ele[1]):
             return len(ls_ele[0])
 
-    print(pro_list[0])
 
-    #vytvori list mezer
+    #vytvori list mezer a string podtrzeni underline
     frs_space = []
     sec_space = []
     underline = ''#retezec s podtrzenim pod cisly
     for elem in range(len(pro_list)):#vytvori list s mezerama pro prvni a druhou radku
-        print(pro_list[elem])
-        print(longer(pro_list[elem]))
-        underline += longer(pro_list[elem])*'-' + '--'
+        underline += longer(pro_list[elem])*'-' + '--'#tvorba stringu podtrzeni s pomoci funkce longer
         underline += '    '
-        print(underline)
         diff = abs(len(pro_list[elem][0])-len(pro_list[elem][1]))#rozdil delky prvku v jednotlivych elementech
         if len(pro_list[elem][0]) > len(pro_list[elem][1]):#pokud jeden prvek delsi prida mezeru do druheho space listu
             sec_space.append(diff * " ")
@@ -70,7 +65,6 @@ def arithmetic_arranger_2(problems, result=True):
             frs_space.append(diff * " ")
         else:
             frs_space.append("")
-    print(underline)
 
 
     frs_line = ''#vyvtoreni prvniho radku
@@ -84,6 +78,12 @@ def arithmetic_arranger_2(problems, result=True):
                 break
     print(frs_line)
 
+    def space_len(ls_ele):
+        if len(ls_ele[0])>len(ls_ele[1]):
+            return len(ls_ele[0])-len(ls_ele[1])
+        else:
+            return 0
+
     sec_line = ''#vytvoreni druheho radku
     for example_nr in range(len(problems)):  # priradi do promene problem poradove cislo prikladu
         space_count = 0
@@ -92,7 +92,8 @@ def arithmetic_arranger_2(problems, result=True):
         sec_line += sec_space[example_nr]
         for each_nr in problems[example_nr]:  # projde vsechny prvky z kazdeho prikladu
             if each_nr == "+":#pokud nalezne znamenko, prida ho pred cisla
-                sec_line += "+ "
+                #print(space_len(pro_list[example_nr]))
+                sec_line += "+ " #+ space_len(pro_list[example_nr])*" "
             if each_nr == "-":
                 sec_line += "- "
             if each_nr == " ":# pokud nalezne dve mezery tak prida cisla do sec_line
@@ -100,7 +101,13 @@ def arithmetic_arranger_2(problems, result=True):
             elif space_count == 2:
                 sec_line += each_nr
     print(sec_line)
-
+    print(underline)
+    '''
+    if result == True:
+        print('chci vyslekdy')
+        for elem in range(problems):
+            if 
+'''
 #vzorova rovnice
 '''
   32         1      9999      523
@@ -112,4 +119,4 @@ def arithmetic_arranger_2(problems, result=True):
 
 
 
-print(arithmetic_arranger_2(["32 + 8", "1 - 3801", "9999 + 9999", "523 - 49"]))
+print(arithmetic_arranger_2(["32 + 8", "1 + 3801", "9999 + 9999", "523 - 49"]))
