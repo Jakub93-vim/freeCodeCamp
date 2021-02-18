@@ -53,7 +53,9 @@ def arithmetic_arranger_2(problems, result=True):
     frs_space = []
     sec_space = []
     underline = ''#retezec s podtrzenim pod cisly
+    underline_count = [] #vytvori list spoctem podtrzeni, ktery je pouzity pri odsazovani vysledku pod podtrzenim
     for elem in range(len(pro_list)):#vytvori list s mezerama pro prvni a druhou radku
+        underline_count.append(longer(pro_list[elem])+2)
         underline += longer(pro_list[elem])*'-' + '--'#tvorba stringu podtrzeni s pomoci funkce longer
         underline += '    '
         diff = abs(len(pro_list[elem][0])-len(pro_list[elem][1]))#rozdil delky prvku v jednotlivych elementech
@@ -73,46 +75,57 @@ def arithmetic_arranger_2(problems, result=True):
         frs_line += frs_space[example_nr]
         for each_nr in problems[example_nr]:#projde vsechny prvky z kazdeho prikladu
             frs_line += each_nr
-            if each_nr == " ":
-                frs_line += "   "
-                break
+            if each_nr == " ": #and (len(problems) - example_nr) == 1:
+                    frs_line += "   "
+                    break
     print(frs_line)
 
-    def space_len(ls_ele):
-        if len(ls_ele[0])>len(ls_ele[1]):
-            return len(ls_ele[0])-len(ls_ele[1])
-        else:
-            return 0
 
     sec_line = ''#vytvoreni druheho radku
     for example_nr in range(len(problems)):  # priradi do promene problem poradove cislo prikladu
         space_count = 0
         if example_nr >= 1:# za prvnim a dalsim cislem udela mezeru
             sec_line += "    "
-        sec_line += sec_space[example_nr]
         for each_nr in problems[example_nr]:  # projde vsechny prvky z kazdeho prikladu
             if each_nr == "+":#pokud nalezne znamenko, prida ho pred cisla
-                #print(space_len(pro_list[example_nr]))
-                sec_line += "+ " #+ space_len(pro_list[example_nr])*" "
+                sec_line += "+ "
+                sec_line += sec_space[example_nr] #prida mezeru z listu sec_space
             if each_nr == "-":
                 sec_line += "- "
+                sec_line += sec_space[example_nr] #prida mezeru z listu sec_space
             if each_nr == " ":# pokud nalezne dve mezery tak prida cisla do sec_line
                 space_count += 1
             elif space_count == 2:
                 sec_line += each_nr
     print(sec_line)
     print(underline)
-    '''
+
     if result == True:
-        print('chci vyslekdy')
-        for elem in range(problems):
-            if 
-'''
+        ele_num = 0 # vytvoreni pocitadla, abych se mohl pohybovat v listu problems_poc
+        result_str = ''
+        underline_count[0]=0
+        for elem in problems:
+            if '+' in elem:
+                num = int(problems_poc[ele_num][0]) + int(problems_poc[ele_num][1])#secte dve cisla v prvku listu
+                if ele_num==0: #pred prvni prvek prida mezeru
+                    result_str += '  '
+                if ele_num>0:#pred kazdy dalsi ctyri mezery
+                    result_str += '    '
+                result_str += (underline_count[ele_num]-len(str(num)))*' ' + str(num) #prida cisla do vysledneho stringu, pred ne udela mezeru
+                ele_num += 1  # vytvoreni pocitadla, abych se mohl pohybovat v listu problems_poc
+            else:
+                num = int(problems_poc[ele_num][0]) - int(problems_poc[ele_num][1])
+                if ele_num>0:#pred kazdy dalsi ctyri mezery
+                    result_str += '    '
+                result_str += (underline_count[ele_num]-len(str(num)))*' ' + str(num) #prida cisla do vysledneho stringu, pred ne udela mezeru
+                ele_num += 1  # vytvoreni pocitadla, abych se mohl pohybovat v listu problems_poc
+        print(result_str)
+
+
 #vzorova rovnice
 '''
-
   32         1      9999      523
- + 8    - 3801    + 9999    -  49
++  8    - 3801    + 9999    -  49
 ----    ------    ------    -----
   40     -3800     19998      474
 '''
